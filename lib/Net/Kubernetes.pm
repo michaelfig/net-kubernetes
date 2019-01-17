@@ -122,6 +122,7 @@ sub get_namespace {
 		my(%create_args) = (url => $self->url, base_path=>$ns->{metadata}{selfLink}, api_version=>$self->api_version, namespace=> $namespace, _namespace_data=>$ns);
 		$create_args{username} = $self->username if(defined $self->username);
 		$create_args{password} = $self->password if(defined $self->password);
+		$create_args{token} = $self->token if(defined $self->token);
 		$create_args{ssl_cert_file} = $self->ssl_cert_file if(defined $self->ssl_cert_file);
 		$create_args{ssl_key_file} = $self->ssl_key_file if(defined $self->ssl_key_file);
 		$create_args{ssl_ca_file} = $self->ssl_ca_file if(defined $self->ssl_ca_file);
