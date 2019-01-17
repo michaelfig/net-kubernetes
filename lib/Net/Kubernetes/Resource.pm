@@ -63,11 +63,6 @@ sub as_hashref
 {
 	my($self) = @_;
 
-        # It is possible for kuberentes to churn the resource version higher even if
-        # you just refresh it and then attempt an update operation. Let's ignore it for now.
-        my $metadata = $self->metadata;
-        delete $metadata->{resourceVersion};
-
 	return clone({
 		inner(),
 		apiVersion=>$self->api_version,
