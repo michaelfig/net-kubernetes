@@ -14,7 +14,7 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "Net-Kubernetes",
   "LICENSE" => "mit",
-  "MIN_PERL_VERSION" => "5.018000",
+  "MIN_PERL_VERSION" => "5.016000",
   "NAME" => "Net::Kubernetes",
   "PREREQ_PM" => {
     "Clone" => 0,
