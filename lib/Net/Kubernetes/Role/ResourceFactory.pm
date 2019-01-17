@@ -20,6 +20,7 @@ sub create_resource_object {
 	$create_args{api_version} = $object->{apiVersion};
 	$create_args{username} = $self->username if($self->username);
 	$create_args{password} = $self->password if($self->password);
+	$create_args{token} = $self->token if($self->token);
 	$create_args{url} = $self->url;
 	$create_args{base_path} = $object->{metadata}{selfLink};
 	$create_args{ssl_cert_file} = $self->ssl_cert_file if($self->ssl_cert_file);
