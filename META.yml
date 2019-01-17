@@ -8,7 +8,7 @@ build_requires:
   HTTP::Response: '0'
   Test::Deep: '0'
   Test::Fatal: '0'
-  Test::Mock::Wrapper: '0.18'
+  Test::Mock::Wrapper: '0.16'
   Test::Spec: '0'
   strict: '0'
   vars: '0'
