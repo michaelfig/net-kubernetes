@@ -8,7 +8,7 @@ use Test::Fatal qw(lives_ok dies_ok);
 use Net::Kubernetes;
 use Net::Kubernetes::Namespace;
 use MIME::Base64;
-use Test::Mock::Wrapper 0.18;
+use Test::Mock::Wrapper 0.16;
 use vars qw($lwpMock $sut);
 
 
