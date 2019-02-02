@@ -1,7 +1,7 @@
 package Net::Kubernetes;
 # ABSTRACT: An object oriented interface to the REST API's provided by kubernetes
 
-our $VERSION = '1.03';
+our $VERSION = '1.031';
 use Moose;
 require Net::Kubernetes::Namespace;
 require LWP::UserAgent;
