@@ -64,7 +64,10 @@ sub create {
 	my $validBooleanProperties = qr/readOnly(?:RootFilesystem)?|hostNetwork|hostPID|hostIPC|stdin(?:Once)?|tty|runAsNonRoot|privileged|ready|unschedulable/;
 	$content =~ s/((["'])(?:$validBooleanProperties)\2:\s*)(["'])(true|false)\3/$1$4/g;
 	# /EndHack
-    my $req = $self->create_request(POST=>$self->path.'/'.lc($object->{kind}).'s', undef, $content);
+	my ($group, $version) = $object->{apiVersion} =~ /^(.*\/)?(.*)/;
+	my $api = $group ? "/apis/$group$version/namespaces/" . ($object->{metadata}{namespace} || $self->namespace || 'default') : "/api/$version";
+	my $url = $self->url.$api.'/'.lc($object->{kind}).'s';
+        my $req = $self->create_request(POST=>$url, $content);
 	my $res = $self->ua->request($req);
 	if ($res->is_success) {
 		return $self->create_resource_object($self->json->decode($res->content));
