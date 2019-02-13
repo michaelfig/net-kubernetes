@@ -11,8 +11,12 @@ require Net::Kubernetes::Resource::ReplicationController;
 with 'Net::Kubernetes::Role::ResourceFactory';
 
 sub get_resource_by_name {
-	my($self, $name, $type) = @_;
-	my($res) = $self->ua->request($self->create_request(GET => $self->path.'/'.$type.'/'.$name));
+	my($self, $name, $type, $apiVersion) = @_;
+        $apiVersion ||= $self->api_version;
+        my ($group, $version) = $apiVersion =~ /^(.*\/)?(.*)/;
+        my $api = $group ? "/apis/$group$version/namespaces/" . ($self->namespace || 'default') : "/api/$version";
+        my $url = $self->url.$api.'/'.$type.'/'.$name;
+	my($res) = $self->ua->request($self->create_request(GET => $url));
 	if ($res->is_success) {
 		return $self->create_resource_object($self->json->decode($res->content));
 	}
