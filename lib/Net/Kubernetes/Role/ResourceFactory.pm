@@ -11,6 +11,7 @@ require Net::Kubernetes::Resource::ReplicationController;
 require Net::Kubernetes::Resource::Secret;
 require Net::Kubernetes::Resource::Service;
 require Net::Kubernetes::Resource::ServiceAccount;
+require Net::Kubernetes::Resource::default;
 
 sub create_resource_object {
 	my($self, $object, $kind) = @_;
@@ -27,6 +28,9 @@ sub create_resource_object {
 	$create_args{ssl_key_file} = $self->ssl_key_file if($self->ssl_key_file);
 	$create_args{ssl_ca_file} = $self->ssl_ca_file if($self->ssl_ca_file);
 	my $class = "Net::Kubernetes::Resource::".$kind;
+	my $inc = $class;
+	$inc =~ s!::!/!g;
+	$class = "Net::Kubernetes::Resource::default" if (!$INC{"$inc.pm"});
 	return $class->new(%create_args);
 }
 
