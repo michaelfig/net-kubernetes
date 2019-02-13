@@ -65,8 +65,9 @@ sub create {
 	$content =~ s/((["'])(?:$validBooleanProperties)\2:\s*)(["'])(true|false)\3/$1$4/g;
 	# /EndHack
 	my ($group, $version) = $object->{apiVersion} =~ /^(.*\/)?(.*)/;
-	my $api = $group ? "/apis/$group$version/namespaces/" . ($object->{metadata}{namespace} || $self->namespace || 'default') : "/api/$version";
-	my $url = $self->url.$api.'/'.lc($object->{kind}).'s';
+	my $api = $group ? "/apis/$group$version" : "/api/$version";
+        my $ns = "/namespaces/" . ($object->{metadata}{namespace} || $self->namespace || 'default');
+	my $url = $self->url.$api.$ns.'/'.lc($object->{kind}).'s';
         my $req = $self->create_request(POST=>$url, $content);
 	my $res = $self->ua->request($req);
 	if ($res->is_success) {
