@@ -67,8 +67,10 @@ sub create {
 	my ($group, $version) = $object->{apiVersion} =~ /^(.*\/)?(.*)/;
 	my $api = $group ? "/apis/$group$version" : "/api/$version";
         my $ns = "/namespaces/" . ($object->{metadata}{namespace} || $self->namespace || 'default');
-	my $url = $self->url.$api.$ns.'/'.lc($object->{kind}).'s';
-        my $req = $self->create_request(POST=>$url, $content);
+	my $url = $self->url.$api.$ns.'/'.lc($object->{kind});
+	$url =~ s/s$/se/;
+        $url .= 's';
+	my $req = $self->create_request(POST=>$url, $content);
 	my $res = $self->ua->request($req);
 	if ($res->is_success) {
 		return $self->create_resource_object($self->json->decode($res->content));
