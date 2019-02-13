@@ -62,7 +62,7 @@ sub create {
 	# sure just now how I want to solve it.
 	my $content = $self->json->encode($object);
 	my $validBooleanProperties = qr/readOnly(?:RootFilesystem)?|hostNetwork|hostPID|hostIPC|stdin(?:Once)?|tty|runAsNonRoot|privileged|ready|unschedulable/;
-	$content =~ s/((["'])(?:$validBooleanProperties)\2:\s)(["'])(true|false)\3/$1$4/g;
+	$content =~ s/((["'])(?:$validBooleanProperties)\2:\s*)(["'])(true|false)\3/$1$4/g;
 	# /EndHack
     my $req = $self->create_request(POST=>$self->path.'/'.lc($object->{kind}).'s', undef, $content);
 	my $res = $self->ua->request($req);
